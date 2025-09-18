@@ -83,6 +83,8 @@ plt.plot(history.history['loss'], 'b')
 plt.plot(history.history['val_accuracy'], 'r')
 plt.show()
 
+## 과제부분(오답 이미지 출력)
+
 result = model.predict(x_test_datas)
 diff = []
 predictnum = []
@@ -96,8 +98,8 @@ for i in range(len(result)):
 for i in range(5):
     pickidx = random.choice(range(0, len(diff)))
     print(predictnum[pickidx])
-    diff[pickidx].show()
-
+    plt.imshow(diff[pickidx])
+    plt.show()
 ## 평가
 # x_test_datas = np.reshape(x_test_datas, newshape=(-1, 784))
 # y_test_datas = np.reshape(y_test_datas, newshape=(-1, 10))
