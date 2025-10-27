@@ -169,7 +169,7 @@ l2dpt_checkpoint = tf.keras.callbacks.ModelCheckpoint(
 
 baseline_history = baseline_model.fit(train_data,
                                       train_labels,
-                                      epochs=200,
+                                      epochs=10,
                                       batch_size=512,
                                       validation_data=(test_data, test_labels),
                                       callbacks=[baseline_checkpoint],
@@ -177,7 +177,7 @@ baseline_history = baseline_model.fit(train_data,
 
 smaller_history = smaller_model.fit(train_data,
                                     train_labels,
-                                    epochs=200,
+                                    epochs=10,
                                     batch_size=512,
                                     validation_data=(test_data, test_labels),
                                     callbacks=[smaller_checkpoint],
@@ -185,28 +185,28 @@ smaller_history = smaller_model.fit(train_data,
 
 bigger_history = bigger_model.fit(train_data,
                                   train_labels,
-                                  epochs=200,
+                                  epochs=10,
                                   batch_size=512,
                                   validation_data=(test_data, test_labels),
                                   callbacks=[bigger_checkpoint],
                                   verbose=2)
 
 l2_history = l2_model.fit(train_data, train_labels,
-                                epochs=200,
+                                epochs=10,
                                 batch_size=512,
                                 validation_data=(test_data, test_labels),
                                 callbacks=[l2_checkpoint],
                                 verbose=2)
 
 dpt_history = dpt_model.fit(train_data, train_labels,
-                                epochs=200,
+                                epochs=10,
                                 batch_size=512,
                                 validation_data=(test_data, test_labels),
                                 callbacks=[dpt_checkpoint],
                                 verbose=2)
 
 l2dpt_history = l2dpt_model.fit(train_data, train_labels,
-                                epochs=200,
+                                epochs=10,
                                 batch_size=512,
                                 validation_data=(test_data, test_labels),
                                 callbacks=[l2dpt_checkpoint],
@@ -251,30 +251,34 @@ plot_history([('baseline', baseline_history),
 
 print("\n--- Loading and evaluating best models ---")
 
+
+
+# 각 모델별로 저장된 체크포인트 파일에서 모델을 로드하고 평가
+
 model_dir = './imdb_checkpoints'
 
-best_baseline_model = tf.keras.models.load_model('best_baseline_model.keras')
-loss, acc = best_baseline_model.evaluate(test_data, test_labels, verbose=0)
+best_baseline_model = tf.keras.models.load_model(os.path.join(model_dir, 'baseline_model.keras'))
+loss, acc, bce = best_baseline_model.evaluate(test_data, test_labels, verbose=0)
 print(f"Best Baseline Model Accuracy: {100*acc:5.2f}%")
 
-best_smaller_model = tf.keras.models.load_model('best_smaller_model.keras')
-loss, acc = best_smaller_model.evaluate(test_data, test_labels, verbose=0)
+best_smaller_model = tf.keras.models.load_model(os.path.join(model_dir, 'smaller_model.keras'))
+loss, acc, bce = best_smaller_model.evaluate(test_data, test_labels, verbose=0)
 print(f"Best Smaller Model Accuracy: {100*acc:5.2f}%")
 
-best_bigger_model = tf.keras.models.load_model('best_bigger_model.keras')
-loss, acc = best_bigger_model.evaluate(test_data, test_labels, verbose=0)
+best_bigger_model = tf.keras.models.load_model(os.path.join(model_dir, 'bigger_model.keras'))
+loss, acc, bce = best_bigger_model.evaluate(test_data, test_labels, verbose=0)
 print(f"Best Bigger Model Accuracy: {100*acc:5.2f}%")
 
-best_l2_model = tf.keras.models.load_model('best_l2_model.keras')
-loss, acc = best_l2_model.evaluate(test_data, test_labels, verbose=0)
+best_l2_model = tf.keras.models.load_model(os.path.join(model_dir, 'l2_model.keras'))
+loss, acc, bce = best_l2_model.evaluate(test_data, test_labels, verbose=0)
 print(f"Best L2 Model Accuracy: {100*acc:5.2f}%")
 
-best_dpt_model = tf.keras.models.load_model('best_dpt_model.keras')
-loss, acc = best_dpt_model.evaluate(test_data, test_labels, verbose=0)
+best_dpt_model = tf.keras.models.load_model(os.path.join(model_dir, 'dpt_model.keras'))
+loss, acc, bce = best_dpt_model.evaluate(test_data, test_labels, verbose=0)
 print(f"Best Dropout Model Accuracy: {100*acc:5.2f}%")
 
-best_l2dpt_model = tf.keras.models.load_model('best_l2dpt_model.keras')
-loss, acc = best_l2dpt_model.evaluate(test_data, test_labels, verbose=0)
+best_l2dpt_model = tf.keras.models.load_model(os.path.join(model_dir, 'l2dpt_model.keras'))
+loss, acc, bce = best_l2dpt_model.evaluate(test_data, test_labels, verbose=0)
 print(f"Best L2+Dropout Model Accuracy: {100*acc:5.2f}%")
     
 
