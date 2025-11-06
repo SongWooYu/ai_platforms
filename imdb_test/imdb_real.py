@@ -111,8 +111,6 @@ l2_checkpoint = tf.keras.callbacks.ModelCheckpoint(
 
 
 
-
-
 dpt_model = keras.Sequential([
     keras.layers.Dense(16, activation='relu', input_shape=(NUM_WORDS,)),
     keras.layers.Dropout(0.5),
@@ -169,7 +167,7 @@ l2dpt_checkpoint = tf.keras.callbacks.ModelCheckpoint(
 
 baseline_history = baseline_model.fit(train_data,
                                       train_labels,
-                                      epochs=10,
+                                      epochs=200,
                                       batch_size=512,
                                       validation_data=(test_data, test_labels),
                                       callbacks=[baseline_checkpoint],
@@ -177,7 +175,7 @@ baseline_history = baseline_model.fit(train_data,
 
 smaller_history = smaller_model.fit(train_data,
                                     train_labels,
-                                    epochs=10,
+                                    epochs=200,
                                     batch_size=512,
                                     validation_data=(test_data, test_labels),
                                     callbacks=[smaller_checkpoint],
@@ -185,28 +183,28 @@ smaller_history = smaller_model.fit(train_data,
 
 bigger_history = bigger_model.fit(train_data,
                                   train_labels,
-                                  epochs=10,
+                                  epochs=200,
                                   batch_size=512,
                                   validation_data=(test_data, test_labels),
                                   callbacks=[bigger_checkpoint],
                                   verbose=2)
 
 l2_history = l2_model.fit(train_data, train_labels,
-                                epochs=10,
+                                epochs=200,
                                 batch_size=512,
                                 validation_data=(test_data, test_labels),
                                 callbacks=[l2_checkpoint],
                                 verbose=2)
 
 dpt_history = dpt_model.fit(train_data, train_labels,
-                                epochs=10,
+                                epochs=200,
                                 batch_size=512,
                                 validation_data=(test_data, test_labels),
                                 callbacks=[dpt_checkpoint],
                                 verbose=2)
 
 l2dpt_history = l2dpt_model.fit(train_data, train_labels,
-                                epochs=10,
+                                epochs=200,
                                 batch_size=512,
                                 validation_data=(test_data, test_labels),
                                 callbacks=[l2dpt_checkpoint],
@@ -234,13 +232,14 @@ def plot_history(histories, key='binary_crossentropy'):
 
 
 
-plot_history([('baseline', baseline_history),
-              ('smaller', smaller_history),
-              ('bigger', bigger_history),
-              ('l2', l2_history),
-              ('dropout', dpt_history),
-              ('l2_dropout', l2dpt_history)])
+# plot_history([('baseline', baseline_history),
+#               ('smaller', smaller_history),
+#               ('bigger', bigger_history),
+#               ('l2', l2_history),
+#               ('dropout', dpt_history),
+#               ('l2_dropout', l2dpt_history)])
 
+# Accuracy 그래프 출력 추가(key='accuracy')
 plot_history([('baseline', baseline_history),
               ('smaller', smaller_history),
               ('bigger', bigger_history),
