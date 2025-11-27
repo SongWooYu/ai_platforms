@@ -1,1 +1,8 @@
-images/
+final_project/images/
+final_project/images.zip
+dogvscat/cats_vs_dogs_small/
+dogvscat/test1/
+dogvscat/train/
+*.zip
+*.h5
+*.keras
