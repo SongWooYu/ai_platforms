@@ -6,3 +6,4 @@ dogvscat/train/
 *.zip
 *.h5
 *.keras
+images/
